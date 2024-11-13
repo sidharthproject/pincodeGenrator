@@ -1,19 +1,30 @@
-    let image = document.querySelector('.image') 
+
+    const boxes1 = document.querySelectorAll('.box1');
+    const boxes2 = document.querySelectorAll('.box2');
+    const rightPinMessage = document.querySelector('.rightpin');
+    const continueButton = document.querySelector('.continue');
+
+
+   let image = document.querySelector('.image') 
     image.addEventListener('click',function(){
         const hiddentext = document.querySelector(".hiddentext");
         if (hiddentext) hiddentext.style.display = "block";
         const showtext = document.querySelector('.showtext');
         showtext.style.display="none"
         
-
+   
         let line = document.querySelector(".line2")
                 line.style.backgroundColor = "#f1e8e8"
-    })
-    const boxes1 = document.querySelectorAll('.box1');
-    const boxes2 = document.querySelectorAll('.box2');
-    const rightPinMessage = document.querySelector('.rightpin');
-    const continueButton = document.querySelector('.continue');
+                 let secondbar = document.querySelector(".barcount")
+               secondbar.innerHTML = "1 of 2"
 
+               boxes1.forEach((box) => {
+                box.value = '';  
+            });
+               boxes2.forEach((box) => {
+                box.value = '';  
+            });
+    })
     function checkInputsFilled() {
        
         const anyFilled1 = Array.from(boxes1).some(input => input.value.length > 0);
@@ -23,7 +34,7 @@
          
           
       
-        if (anyFilled1 || anyFilled2) {
+        if (anyFilled1 || anyFilled2 && pin1.length === boxes1.length) {
             continueButton.innerText = 'Continue';
            
         } else {
@@ -53,9 +64,10 @@
         const pin1 = Array.from(boxes1).map(input => input.value).join('');
         const pin2 = Array.from(boxes2).map(input => input.value).join('');
 
-        if (pin1 === pin2 && pin1.length === boxes1.length) {
+        if (Number(pin1) === Number(pin2) && pin1.length === boxes1.length) {
             rightPinMessage.style.color = 'green';  // Set text color to green if PIN codes match
         } else {
+            
             rightPinMessage.style.color = '';  // Reset text color if PIN codes don't match
         }
     }
@@ -108,7 +120,7 @@
             const pindata = completeData[0]?.PostOffice?.[0].Pincode;
       console.log(pindata);
 
-
+     
       
             if (Number(pindata) === Number(pincode)) {
                let secondbar = document.querySelector(".barcount")
@@ -139,20 +151,15 @@
         }
     }
     
-    function handleButton() {
+    async function handleButton() {
         const pin1 = Array.from(document.querySelectorAll('.box1')).map(input => input.value).join('');
-
-        if (pin1.length === 6) {
-            getPinCode(pin1);
+        const pin2 = Array.from(document.querySelectorAll('.box2')).map(input => input.value).join('');
     
-           
-    
-            
-            
-            
-           
+        // Ensure both PIN codes match and are of valid length before fetching data
+        if (pin1 === pin2 && pin1.length === 6) {
+            await getPinCode(pin1);
         } else {
-            alert("Please enter a valid 6-digit PIN code.");
+            alert("Please ensure both PIN codes match and are 6 digits.");
         }
     }
     
