@@ -45,42 +45,45 @@
         });
     });
 
-
+    // Initial check when the page loads (in case any inputs are already filled)
     checkInputsFilled();
     function checkPinCodesMatch() {
         const pin1 = Array.from(boxes1).map(input => input.value).join('');
         const pin2 = Array.from(boxes2).map(input => input.value).join('');
 
         if (pin1 === pin2 && pin1.length === boxes1.length) {
-            rightPinMessage.style.color = 'green';  
+            rightPinMessage.style.color = 'green';  // Set text color to green if PIN codes match
         } else {
-            rightPinMessage.style.color = '';  
+            rightPinMessage.style.color = '';  // Reset text color if PIN codes don't match
         }
     }
     
 
+    // Add event listeners for the first set of input boxes (box1)
     boxes1.forEach((box, index) => {
         box.addEventListener('input', (event) => {
+            event.target.value = event.target.value.slice(0, 1);
             if (event.target.value.length === 1 && index < boxes1.length - 1) {
                 boxes1[index + 1].focus();
             }
-            checkPinCodesMatch();  
+            checkPinCodesMatch();  // Check if both PIN codes match
         });
 
         box.addEventListener('keydown', (e) => {
             if (e.key === "Backspace" && box.value.length === 0 && index > 0) {
                 boxes1[index - 1].focus();
             }
-            checkPinCodesMatch(); 
+            checkPinCodesMatch();  // Check if both PIN codes match
         });
     });
 
+    // Add event listeners for the second set of input boxes (box2)
     boxes2.forEach((box, index) => {
         box.addEventListener('input', (event) => {
             if (event.target.value.length === 1 && index < boxes2.length - 1) {
                 boxes2[index + 1].focus();
             }
-            checkPinCodesMatch();  
+            checkPinCodesMatch();  // Check if both PIN codes match
         });
 
         box.addEventListener('keydown', (e) => {
