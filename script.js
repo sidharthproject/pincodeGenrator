@@ -17,6 +17,8 @@
     function checkInputsFilled() {
        
         const anyFilled1 = Array.from(boxes1).some(input => input.value.length > 0);
+        console.log(anyFilled1);
+        
         const anyFilled2 = Array.from(boxes2).some(input => input.value.length > 0);
          
           
@@ -61,6 +63,8 @@
 
     // Add event listeners for the first set of input boxes (box1)
     boxes1.forEach((box, index) => {
+        console.log("box");
+        
         box.addEventListener('input', (event) => {
             event.target.value = event.target.value.slice(0, 1);
             if (event.target.value.length === 1 && index < boxes1.length - 1) {
@@ -107,7 +111,9 @@
 
       
             if (Number(pindata) === Number(pincode)) {
-
+               let secondbar = document.querySelector(".barcount")
+               secondbar.innerHTML = "2 of 2"
+                
                 let line = document.querySelector(".line2")
                 line.style.backgroundColor = "red"
            const hiddentext = document.querySelector(".hiddentext");
