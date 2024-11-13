@@ -11,6 +11,7 @@
         if (hiddentext) hiddentext.style.display = "block";
         const showtext = document.querySelector('.showtext');
         showtext.style.display="none"
+        rightPinMessage.style.color = '';
         
    
         let line = document.querySelector(".line2")
