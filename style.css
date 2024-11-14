@@ -56,14 +56,14 @@
 .line1 {
     background-color: rgb(241, 22, 22);
     height: 5px;
-    width: 150px;
+    width: 200px;
     
     border-radius: 5px;
 }
 .line2 {
     background-color: #f1e8e8;
     height: 5px;
-    width: 150px;
+    width: 200px;
     
     border-radius: 5px;
 }

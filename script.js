@@ -25,6 +25,7 @@
                boxes2.forEach((box) => {
                 box.value = '';  
             });
+            checkInputsFilled()
     })
     function checkInputsFilled() {
        
