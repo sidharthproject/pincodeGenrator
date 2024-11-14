@@ -26,6 +26,7 @@
                 box.value = '';  
             });
             checkInputsFilled()
+            checkPinCodesMatch()
     })
     function checkInputsFilled() {
        
