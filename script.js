@@ -33,10 +33,7 @@
         console.log(anyFilled1);
         
         const anyFilled2 = Array.from(boxes2).some(input => input.value.length > 0);
-         
-          
-      
-        if (anyFilled1 || anyFilled2 && pin1.length === boxes1.length) {
+           if (anyFilled1 || anyFilled2 && pin1.length === boxes1.length) {
             continueButton.innerText = 'Continue';
            
         } else {
@@ -44,7 +41,14 @@
            
             continueButton.style.padding= "20px";  
         }
+        const allFilled1 = Array.from(boxes1).every(input => input.value.trim() !== '');
+        const allFilled2 = Array.from(boxes2).every(input => input.value.trim() !== '');
+         return allFilled1 && allFilled2
+      
+      
     }
+
+    
 
    
     boxes1.forEach((box) => {
@@ -60,22 +64,29 @@
         });
     });
 
-    // Initial check when the page loads (in case any inputs are already filled)
+   
     checkInputsFilled();
     function checkPinCodesMatch() {
+        
+    if (!checkInputsFilled()) {
+        rightPinMessage.innerHTML = "Please fill both PIN codes";
+        rightPinMessage.style.color = 'orange'; 
+        return;
+    }
         const pin1 = Array.from(boxes1).map(input => input.value).join('');
         const pin2 = Array.from(boxes2).map(input => input.value).join('');
 
-        if (Number(pin1) === Number(pin2) && pin1.length === boxes1.length) {
-            rightPinMessage.style.color = 'green';  // Set text color to green if PIN codes match
+        if (Number(pin1) === Number(pin2) && pin1.length === pin2.length) {
+            rightPinMessage.innerHTML = "Your codes are same"
+            rightPinMessage.style.color = 'green';  
         } else {
-            
-            rightPinMessage.style.color = '';  // Reset text color if PIN codes don't match
+              rightPinMessage.innerHTML = "Your codes are misMatch"
+            rightPinMessage.style.color = 'red';  
         }
+   
     }
-    
 
-    // Add event listeners for the first set of input boxes (box1)
+
     boxes1.forEach((box, index) => {
         console.log("box");
         
