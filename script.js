@@ -1,6 +1,9 @@
 
     const boxes1 = document.querySelectorAll('.box1');
+    console.log(boxes1.length);
+    
     const boxes2 = document.querySelectorAll('.box2');
+    console.log(boxes2);
     const rightPinMessage = document.querySelector('.rightpin');
     const continueButton = document.querySelector('.continue');
 
@@ -67,14 +70,18 @@
 
    
     checkInputsFilled();
+
+    
     function checkPinCodesMatch() {
         
     if (!checkInputsFilled()) {
         rightPinMessage.innerHTML = "Please fill both PIN codes";
         rightPinMessage.style.color = 'orange'; 
-        return;
+        return; // to stop the function
     }
         const pin1 = Array.from(boxes1).map(input => input.value).join('');
+        console.log(pin1.length);
+        
         const pin2 = Array.from(boxes2).map(input => input.value).join('');
 
         if (Number(pin1) === Number(pin2) && pin1.length === pin2.length) {
@@ -89,31 +96,37 @@
 
 
     boxes1.forEach((box, index) => {
-        console.log("box");
+        console.log(box);
+        console.log(index);
+        
         
         box.addEventListener('input', (event) => {
+            console.log(event);
+            
             event.target.value = event.target.value.slice(0, 1);
             if (event.target.value.length === 1 && index < boxes1.length - 1) {
                 boxes1[index + 1].focus();
             }
-            checkPinCodesMatch();  // Check if both PIN codes match
+            checkPinCodesMatch();  
         });
 
         box.addEventListener('keydown', (e) => {
-            if (e.key === "Backspace" && box.value.length === 0 && index > 0) {
+            
+            
+            if (e.key === "Backspace" && e.target.value.length === 0 && index > 0) {
                 boxes1[index - 1].focus();
             }
-            checkPinCodesMatch();  // Check if both PIN codes match
+            checkPinCodesMatch(); 
         });
     });
 
-    // Add event listeners for the second set of input boxes (box2)
+   
     boxes2.forEach((box, index) => {
         box.addEventListener('input', (event) => {
             if (event.target.value.length === 1 && index < boxes2.length - 1) {
                 boxes2[index + 1].focus();
             }
-            checkPinCodesMatch();  // Check if both PIN codes match
+            checkPinCodesMatch();  
         });
 
         box.addEventListener('keydown', (e) => {
